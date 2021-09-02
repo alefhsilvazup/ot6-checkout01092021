@@ -1,0 +1,24 @@
+server:
+  port: 9999
+
+
+cdc:
+  service:
+    url: http://localhost:8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: cdc
+          uri: http://localhost:8080
+          predicates:
+            - Path=/cdc/**
+          filters:
+            - StripPrefix=1
+        - id: stitch
+          uri: https://disney.com
+          predicates:
+            - Path=/stitch/**
+          filters:
+            - StripPrefix=1
